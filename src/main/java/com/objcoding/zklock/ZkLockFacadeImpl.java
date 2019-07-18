@@ -38,7 +38,7 @@ public class ZkLockFacadeImpl implements LockFacade {
 
     @Override
     public void release(String lockName) throws Exception {
-        zkLockService.delete(lockName);
+        zkLockService.deleteKey(lockName);
     }
 
 }

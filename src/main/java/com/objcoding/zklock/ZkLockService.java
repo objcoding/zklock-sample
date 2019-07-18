@@ -7,6 +7,7 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.util.PendingException;
 
 import javax.annotation.PostConstruct;
 import java.util.Comparator;
@@ -138,10 +139,18 @@ public class ZkLockService extends CuratorClient {
             throw new Exception("获取分布式锁失败", e);
         } finally {
             if (doDelete) {
-                delete(ourPath);
+                deleteKey(ourPath);
             }
         }
         return lockName;
+    }
+
+    protected void deleteKey(String ourPath) throws Exception {
+        // /releaseCouponStuckNum/123/1234/lock-0000000000
+        String[] s = ourPath.split("/");
+        ourPath = "/" + s[1] + "/" + s[2];
+        log.info("delete ourPath:{}", ourPath);
+        super.delete(ourPath);
     }
 
     /**
