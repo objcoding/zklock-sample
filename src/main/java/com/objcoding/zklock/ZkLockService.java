@@ -147,9 +147,9 @@ public class ZkLockService extends CuratorClient {
 
     protected void deleteKey(String ourPath) throws Exception {
         // /releaseCouponStuckNum/123/1234/lock-0000000000
-        String[] s = ourPath.split("/");
-        ourPath = "/" + s[1] + "/" + s[2];
-        log.info("delete ourPath:{}", ourPath);
+//        String[] s = ourPath.split("/");
+//        ourPath = "/" + s[1] + "/" + s[2];
+//        log.info("delete ourPath:{}", ourPath);
         super.delete(ourPath);
     }
 
